@@ -1,3 +1,8 @@
+# Whats new?
+- useEffect and setInterval within it.
+- Pretty sure the way I do it is jank
+- Almost all of my work is in cardPile.js
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
