@@ -7,6 +7,7 @@ const CardPile = () => {
     const [deck, setDeck] = useState(newDeck);
     const [card, setCard] = useState(null);
     const [num, setNum] = useState(52);
+    const [draw, setDraw] = useState(false);
     const drawId = useRef();
 
     async function newDeck() {
@@ -17,10 +18,12 @@ const CardPile = () => {
 
     function startDraw() {
         setNum(num - 1);
+        setDraw(true);
     }
 
     function stopDraw() {
         clearInterval(drawId.current)
+        setDraw(false);
     }
     
     useEffect(function fetchCardOnDeckChange() {
@@ -38,7 +41,6 @@ const CardPile = () => {
 
         const start = () => drawId.current = setInterval(() => {
             fetchCard();
-            console.log(drawId)
         }, 1000);
         
         if (num < 52) start();
@@ -48,8 +50,7 @@ const CardPile = () => {
 
     return (
         <div>
-            <button onClick={startDraw}>Start drawing</button>
-            <button onClick={stopDraw}>Stop Drawing</button>      
+            {draw ? <button onClick={stopDraw}>Stop Drawing</button> : <button onClick={startDraw}>Start drawing</button>}      
             {card ? <Card img={card} /> : <p>Draw a card</p>}
         </div>
     )
@@ -57,7 +58,3 @@ const CardPile = () => {
 }
 
 export default CardPile;
-
-// can't figure out how to toggle between start and stop. What variable do i use to toggle? 
-// drawId or num don't help toggling. drawId is like random numbers.
-// drawId starts at 7, 11, 16, then starts counting by 1s. I don't get it.
